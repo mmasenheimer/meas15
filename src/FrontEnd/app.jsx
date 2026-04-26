@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import LogInPage from './LogInPage.jsx';
-import Page from './MainPage/Page.jsx';
+import React, { useState } from "react";
+import LogInPage from "./LogInPage.jsx";
+import Page from "./MainPage/Page.jsx";
 
 function App() {
     const [count, setCount] = useState(0);

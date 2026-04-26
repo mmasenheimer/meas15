@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
+import './HomePage.css';
 
 export default function Map() {
-
-<<<<<<< Updated upstream
-=======
     const [location1, setLocation1] = useState('');
     const [location2, setLocation2] = useState('');
     const [display, setDisplay] = useState(1);
@@ -45,10 +43,15 @@ export default function Map() {
         }
     }
     
->>>>>>> Stashed changes
     return (
-        <div id="map">
-            <h1>Map</h1>
+        <div className="page-container">
+            <nav className="side-banner"></nav>
+            <main className="content-area">
+                <div id="map">
+                    <h1>Map</h1>
+                    {whichDisplay()}
+                </div>
+            </main>
         </div>
     )
 }

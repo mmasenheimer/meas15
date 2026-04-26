@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 app.use(express.json());
+app.use("/api/groups", require("./src/backend/routes/groups"));
 
 mongoose
   .connect(process.env.MONGODB_URI)
