@@ -10,18 +10,6 @@ router.get("/", async (req, res) => {
   res.json(user);
 });
 
-// PATCH /api/profile
-// Body: { userId, username }
-router.patch("/", async (req, res) => {
-  const { userId, username } = req.body;
-  const user = await User.findByIdAndUpdate(
-    userId,
-    { username },
-    { new: true },
-  ).select("-password");
-  res.json(user);
-});
-
 // POST /api/profile/logout
 router.post("/logout", async (req, res) => {
   const { userId } = req.body;
