@@ -5,10 +5,13 @@ const app = express();
 app.use(express.json());
 
 mongoose
-  .connect(
-    "mongodb+srv://mmasenheimer:test123@cluster0.pckwccg.mongodb.net/ecomap",
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB"))
+  .then(() =>
+    console.log(`┌─┐┌─┐┌─┐┌┬┐┌─┐┌─┐
+├┤ │  │ ││││├─┤├─┘
+└─┘└─┘└─┘┴ ┴┴ ┴┴ `),
+  )
   .catch((err) => console.error(err));
 
 app.use("/api/auth", require("./src/backend/routes/auth"));
