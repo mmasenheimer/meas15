@@ -3,3 +3,4 @@ dist/
 *.class
 .DS_Store
 src/algorithm/GOOGLE_MAPS_API_KEY.txt
+.env
