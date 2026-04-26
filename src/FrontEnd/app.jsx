@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LogInPage from './LogInPage.jsx';
-import HomePage from './MainPage/Page.jsx';
+import Page from './MainPage/Page.jsx';
 
 function App() {
     const [count, setCount] = useState(0);
@@ -11,7 +11,7 @@ function App() {
         console.log('Login attempt:', { userName, password });
         setLoggedIn(true);
     }
-    const onLogOut = () => {
+    const logOut = () => {
         setLoggedIn(false);
         setPassword('');
         setUserName('');
@@ -21,7 +21,7 @@ function App() {
             <header className="App-header">
                 <h1>Welcome to React</h1>
             </header>
-            {loggedIn ? (<LogInPage onSubmit={onSubmit}/>) : (<HomePage onLogOut={onLogOut}/>)}
+            {loggedIn ? (<Page logOut={logOut}/>) : (<LogInPage onSubmit={onSubmit}/>)}
         </div>
     );
 }

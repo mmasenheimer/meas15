@@ -6,7 +6,7 @@ import Map from './map.jsx';
 import HomePage from './HomePage.jsx';
 
 
-export default function Page({onLogOut}) {
+export default function Page({logOut}) {
     const [page, setPage] = useState('home');
 
     const changePage = (newPage) => {
@@ -18,7 +18,7 @@ export default function Page({onLogOut}) {
             case 'leaderboard':
                 return <Leaderboard />;
             case 'profile':
-                return <Profile />;
+                return <Profile logOut={logOut} />;
             case 'map':
                 return <Map />;
             default:
