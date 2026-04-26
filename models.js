@@ -19,6 +19,7 @@ const tripSchema = new mongoose.Schema({
 // Group schema
 const groupSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  groupId: { type: String, required: true, unique: true }
 });
 
 // User to group schema
