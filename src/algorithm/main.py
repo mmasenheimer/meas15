@@ -164,7 +164,7 @@ def print_route(summary):
 
 # Functions to generate the different routes with various modes of transportation
 
-def route_1_biking_walking(origin, destination, dep):
+def route_1_walking(origin, destination, dep):
     walk = gmaps.directions(origin, destination, mode="walking", departure_time=dep)
 
     return summarize_route(
@@ -344,7 +344,7 @@ def get_all_routes(origin, destination):
     print(f"🕐 Departing   : {fmt_time(dep)}")
 
     routes = [
-        route_1_biking_walking(origin, destination, dep),
+        route_1_walking(origin, destination, dep),
         route_2_walk_bus(origin, destination, dep),
         route_3_walk_bus_uber(origin, destination, dep),
         route_4_walk_uber(origin, destination, dep),
