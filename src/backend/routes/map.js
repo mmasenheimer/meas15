@@ -8,7 +8,7 @@ router.post("/getActivity", async (req, res) => {
   const { start, destination } = req.body;
 
   exec(
-    `python3 ./src/algorithm/main.py "${start}" "${destination}"`,
+    `py -3.13 ./src/algorithm/main.py "${start}" "${destination}"`,
     (err, stdout, stderr) => {
       if (err) return res.status(500).json({ error: stderr });
 
@@ -19,3 +19,5 @@ router.post("/getActivity", async (req, res) => {
     },
   );
 });
+
+module.exports = router;
