@@ -4,6 +4,12 @@ import LeaderBoard from './Leaderboard.jsx';
 
 export default function Leaderboard() {
 
+    
+
+    const leaderBoardMaker = () => {
+
+    }
+
     return (
         <div id="leaderboardPage">
             <div id = "globalLeaderboard" className = "leaderBoard"></div>

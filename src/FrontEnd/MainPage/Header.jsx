@@ -5,10 +5,10 @@ export default function Header({ changePage, page }) {
     return (
         <div id="header">
             <h1 id="title"></h1>
-            <button id="homeButton" onClick={() => changePage("home")}>Home</button>
-            <button id="leaderboardButton" onClick={() => changePage("leaderboard")}>Leaderboard</button>
-            <button id="profileButton" onClick={() => changePage("profile")}>Profile</button>
-            <button id="mapButton" onClick={() => changePage("map")}>map</button>
-        </div>
+            {!(page === 'home') && <button id="homeButton" onClick={() => changePage("home")}>Home</button>}
+            {!(page === 'leaderboard') && <button id="leaderboardButton" onClick={() => changePage("leaderboard")}>Leaderboard</button>}
+            {!(page === 'profile') && <button id="profileButton" onClick={() => changePage("profile")}>Profile</button>}
+            {!(page === 'map') && <button id="mapButton" onClick={() => changePage("map")}>map</button>}
+        </div> 
     )
 }

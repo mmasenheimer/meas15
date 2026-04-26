@@ -86,6 +86,7 @@ function LogInPage({ onSubmit }) {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
+      {isCreating && <button id="backLogIn" onClick={() => setIsCreating(false)}>Back to Log In</button>}
       <button onClick={handleSubmit}>Log in</button>
       <button
         onClick={() => (isCreating ? handleCreate() : setIsCreating(true))}

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 export default function Profile({ logOut, user, changeGroupStatus }) {
     const [joinGroup, setNewGroup] = useState("");
-    const [createGroup, setCreateGroup] = useState("");
+    const [createGroupName, setCreateGroup] = useState("");
     const [inAGroup, setInGroup] = useState(!!user.groups);
     const [groups, setGroups] = useState([]);
 
@@ -18,7 +18,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: user.id, groupName: createGroup }),
+            body: JSON.stringify({ userId: user.id, groupName: createGroupName }),
         });
 
         if (!response.ok) {
@@ -34,7 +34,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
         }
     }
 
-    const leaveGroup = () => {
+    const leaveGroup = async () => {
         try {
         const response = await fetch("/api/groups/leave", {
             method: "POST",
@@ -91,7 +91,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
         {!inAGroup && <div id = 'createGroup'>
             <input
             type="text"
-            value={createGroup}
+            value={createGroupName}
             onChange={(e) => setCreateGroup(e.target.value)}
             />
             <button onClick={() => createGroup()}>Create Group</button>
