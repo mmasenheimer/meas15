@@ -36,7 +36,7 @@ function App() {
     <div className="App">
          <button style={{ position: 'fixed', top: '10px', right: '10px', zIndex: 2000, backgroundColor: 'yellow', color: 'black' }} onClick={() =>  {
             setLoggedIn(true); setUser({username : "eva", points: 5, group: 1})}}>bypass</button>
-      <Header changePage={() => {}} page="login" />
+     <Header changePage={() => {}} page="login" />
       {loggedIn ? (
         <Page logOut={logOut} user={user} changeGroupStatus={changeGroupStatus} />
       ) : (
