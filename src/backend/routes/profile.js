@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { User } = require("../../../models");
-export default function Map({ user }) {
+
 
 // GET /api/profile?userId=...
 router.get("/", async (req, res) => {
