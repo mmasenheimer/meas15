@@ -335,6 +335,15 @@ def route_6_purely_uber(origin, destination, dep):
         dep
     )
 
+def route_7_biking(origin, destination, dep):
+    # Route 7: Purely biking
+    result = gmaps.directions(origin, destination, mode="bicycling", departure_time=dep)
+    return summarize_route(
+        "Route 7 — Purely Biking",
+        {"routes": result} if result else {},
+        dep
+    )
+
 
 def get_all_routes(origin, destination):
     dep = datetime.now()
@@ -350,6 +359,7 @@ def get_all_routes(origin, destination):
         route_4_walk_uber(origin, destination, dep),
         route_5_uber_bus(origin, destination, dep),
         route_6_purely_uber(origin, destination, dep),
+        route_7_biking(origin, destination, dep)
     ]
 
     for r in routes:
