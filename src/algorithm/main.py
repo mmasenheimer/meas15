@@ -36,6 +36,28 @@ def fmt_distance(meters): # Convert meters to a readable distance string.
 def unix_to_datetime(unix_timestamp): # Convert Google's Transit Details time to datetime object time
     return datetime.fromtimestamp(unix_timestamp)
 
+
+# Calculation based on difference between the carbon emissions of the current route and the Uber Routes
+def calculate_emissions(mode_of_transportation, distance):
+    CAR = 192
+    WALK = 35
+    BUS = 105
+    BIKING = 21
+
+    if mode_of_transportation == "car":
+        return distance * CAR
+    elif mode_of_transportation == "walk":
+        return distance * WALK
+    elif mode_of_transportation == "bus":
+        return distance * BUS
+    elif mode_of_transportation == "bicycling":
+        return distance * BIKING
+
+
+def calculate_points(mode_of_transportation, distance):
+    return (calculate_emissions("car", distance) - calculate_emissions(mode_of_transportation, distance))
+
+
 def build_steps_with_times(leg, departure_time_obj):
     """
     Takes a leg from the Google Maps response and a departure datetime object.
@@ -110,10 +132,11 @@ def build_steps_with_times(leg, departure_time_obj):
             steps_summary.extend(block_instructions)
             current_time = block_end
 
-    return steps_summary, current_time
+    return steps_summary, current_time  # current_time is now the arrival time
+
 
 # Formatting all of the information into a dictionary to print
-def summarize_route(label, result, departure_time_obj):
+def summarize_route(label, result, departure_time_obj, points):
     if not result or not result.get("routes"):
         return {"label": label, "error": "No route found"}
 
@@ -126,8 +149,10 @@ def summarize_route(label, result, departure_time_obj):
         "arrives": fmt_time(arrival_time_obj),
         "duration": fmt_duration(leg["duration"]["value"]),
         "distance": fmt_distance(leg["distance"]["value"]),
+        "points": round(points),
         "steps": steps_summary,
     }
+
 
 # Find the bus nearest bus stop
 def find_transit_hub(location, hub_type):
@@ -158,19 +183,24 @@ def print_route(summary):
     print(f"  Arrives  : {summary['arrives']}")
     print(f"  Duration : {summary['duration']}")
     print(f"  Distance : {summary['distance']}")
+    print(f"  Points   : {summary['points']}")
     print(f"  Steps:")
     for step in summary["steps"]:
         print(f"    {step}")
+
 
 # Functions to generate the different routes with various modes of transportation
 
 def route_1_walking(origin, destination, dep):
     walk = gmaps.directions(origin, destination, mode="walking", departure_time=dep)
+    distance_km = walk[0]["legs"][0]["distance"]["value"] / 1000 if walk else 0
+    points = calculate_points("walk", distance_km)
 
     return summarize_route(
-        f"Route 1 — Purely {"Walking"}",
+        "Route 1 — Purely Walking",
         {"routes": walk} if walk else {},
-        dep
+        dep,
+        points
     )
 
 
@@ -182,10 +212,14 @@ def route_2_walk_bus(origin, destination, dep):
         transit_routing_preference="fewer_transfers",
         departure_time=dep,
     )
+    distance_km = result[0]["legs"][0]["distance"]["value"] / 1000 if result else 0
+    points = calculate_points("bus", distance_km)
+
     return summarize_route(
         "Route 2 — Walking + Bus",
         {"routes": result} if result else {},
-        dep
+        dep,
+        points
     )
 
 
@@ -217,10 +251,12 @@ def route_3_walk_bus_uber(origin, destination, dep):
     uber_steps, arrival = build_steps_with_times(uber_leg[0]["legs"][0], uber_dep)
 
     total_seconds = int((arrival - dep).total_seconds())
-    total_meters = (
-        transit_leg[0]["legs"][0]["distance"]["value"]
-        + uber_leg[0]["legs"][0]["distance"]["value"]
-    )
+    transit_meters = transit_leg[0]["legs"][0]["distance"]["value"]
+    uber_meters = uber_leg[0]["legs"][0]["distance"]["value"]
+    total_meters = transit_meters + uber_meters
+
+    # Points calculated as: bus savings on transit portion + car savings on uber portion (uber = car, so 0) + walk savings on walk portion
+    points = calculate_points("bus", transit_meters / 1000)
 
     return {
         "label": "Route 3 — Walking + Bus + Uber",
@@ -228,6 +264,7 @@ def route_3_walk_bus_uber(origin, destination, dep):
         "arrives": fmt_time(arrival),
         "duration": fmt_duration(total_seconds),
         "distance": fmt_distance(total_meters),
+        "points": round(points),
         "steps": (
             [f"── Transit segment (departs {fmt_time(dep)}) ──"]
             + transit_steps
@@ -259,10 +296,12 @@ def route_4_walk_uber(origin, destination, dep):
     uber_steps, arrival = build_steps_with_times(uber_leg[0]["legs"][0], uber_dep)
 
     total_seconds = int((arrival - dep).total_seconds())
-    total_meters = (
-        walk_leg[0]["legs"][0]["distance"]["value"]
-        + uber_leg[0]["legs"][0]["distance"]["value"]
-    )
+    walk_meters = walk_leg[0]["legs"][0]["distance"]["value"]
+    uber_meters = uber_leg[0]["legs"][0]["distance"]["value"]
+    total_meters = walk_meters + uber_meters
+
+    # Points only earned on the walking portion (uber = car, so 0 savings there)
+    points = calculate_points("walk", walk_meters / 1000)
 
     return {
         "label": "Route 4 — Walking + Uber",
@@ -270,6 +309,7 @@ def route_4_walk_uber(origin, destination, dep):
         "arrives": fmt_time(arrival),
         "duration": fmt_duration(total_seconds),
         "distance": fmt_distance(total_meters),
+        "points": round(points),
         "steps": (
             [f"── Walking segment (departs {fmt_time(dep)}) ──"]
             + walk_steps
@@ -306,10 +346,12 @@ def route_5_uber_bus(origin, destination, dep):
     transit_steps, arrival = build_steps_with_times(transit_leg[0]["legs"][0], transit_dep)
 
     total_seconds = int((arrival - dep).total_seconds())
-    total_meters = (
-        uber_leg[0]["legs"][0]["distance"]["value"]
-        + transit_leg[0]["legs"][0]["distance"]["value"]
-    )
+    uber_meters = uber_leg[0]["legs"][0]["distance"]["value"]
+    transit_meters = transit_leg[0]["legs"][0]["distance"]["value"]
+    total_meters = uber_meters + transit_meters
+
+    # Points only earned on the bus portion (uber = car, so 0 savings there)
+    points = calculate_points("bus", transit_meters / 1000)
 
     return {
         "label": f"Route 5 — Uber + Bus (via {hub['name']})",
@@ -317,6 +359,7 @@ def route_5_uber_bus(origin, destination, dep):
         "arrives": fmt_time(arrival),
         "duration": fmt_duration(total_seconds),
         "distance": fmt_distance(total_meters),
+        "points": round(points),
         "steps": (
             [f"── Uber to {hub['name']} (departs {fmt_time(dep)}) ──"]
             + uber_steps
@@ -329,19 +372,31 @@ def route_5_uber_bus(origin, destination, dep):
 def route_6_purely_uber(origin, destination, dep):
     # Route 6: Purely Uber
     result = gmaps.directions(origin, destination, mode="driving", departure_time=dep)
+    distance_km = result[0]["legs"][0]["distance"]["value"] / 1000 if result else 0
+
+    # Uber = car, so 0 points earned
+    points = calculate_points("car", distance_km)
+
     return summarize_route(
         "Route 6 — Purely Uber (Driving)",
         {"routes": result} if result else {},
-        dep
+        dep,
+        points
     )
+
 
 def route_7_biking(origin, destination, dep):
     # Route 7: Purely biking
     result = gmaps.directions(origin, destination, mode="bicycling", departure_time=dep)
+    distance_km = result[0]["legs"][0]["distance"]["value"] / 1000 if result else 0
+
+    points = calculate_points("bicycling", distance_km)
+
     return summarize_route(
         "Route 7 — Purely Biking",
         {"routes": result} if result else {},
-        dep
+        dep,
+        points
     )
 
 
