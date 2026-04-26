@@ -89,13 +89,12 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
     };
 
     return (
-<<<<<<< HEAD
         <div id="profile" style={{ padding: '20px', border: '1px solid #ccc' }}>
             <h2>Profile</h2>
             <div id="userName"><strong>Username:</strong> {user?.username}</div>
             <div id="points"><strong>Points:</strong> {user?.points}</div>
             <div id="userGroup"><strong>Group:</strong> {user?.group ? user.group : "No Group joined"}</div>
-=======
+
         <div className="page-container">
             <div className="side-banner"></div>
             <div id="profile">
@@ -111,7 +110,6 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             />
             <button onClick={() => createGroup()}>Create Group</button>
         </div>}
->>>>>>> 6c9220d80fcc44670d9c97abd416fe91b3b2ce61
 
             <hr />
 
@@ -151,10 +149,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
                 Log Out
             </button>
         </div>
-<<<<<<< HEAD
-=======
-        
     </div>
->>>>>>> 6c9220d80fcc44670d9c97abd416fe91b3b2ce61
+
     );
 }
