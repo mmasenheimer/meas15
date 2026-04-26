@@ -4,8 +4,12 @@ import re
 from datetime import datetime, timedelta
 import sys
 import json
+from dotenv import load_dotenv
 
 # API Configuration
+
+load_dotenv() # Load environment variables from .env file
+
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
 if not API_KEY:
     raise EnvironmentError("Set GOOGfLE_MAPS_API_KEY environment variable.")
