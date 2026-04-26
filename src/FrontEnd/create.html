@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CREATE NEW ACCOUNT</title>
+    </head>
+    <style>
+        body {
+            margin: 0;
+            padding-top: 60px; /* Space for the banner */
+        }
+        .icon-banner {
+            background-color: #2d5a27; /* Your solid color */
+            height: 60px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            display: flex;
+            justify-content: center; /* Centers the group of icons */
+            align-items: center;
+            gap: 50px; /* Space between icons */
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .nav-item:hover {
+            opacity: 0.7;
+            transform: scale(1.1); /* Slight grow effect on hover */
+        }
+
+        /* Make the icons bigger since there is no text */
+        .material-symbols-outlined {
+            font-size: 32px !important; 
+        }
+    </style>
+    <body>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <nav class="icon-banner">
+            <a href="index.html" class="nav-item" title="Home">
+                <span class="material-symbols-outlined">home</span>
+            </a>
+            <a href="map.html" class="nav-item" title="Map">
+                <span class="material-symbols-outlined">map</span>
+            </a>
+            <a href="leaderboard.html" class="nav-item" title="Leaderboard">
+                <span class="material-symbols-outlined">leaderboard</span>
+            </a>
+        </nav>
+        <h1>Create an account</h1>
+        <h3>Are you ready to be more environmentally concious?</h3>
+        <h2>Username</h2>
+        <input type = "text">
+        <h2>Password</h2>
+        <input type = "text"><br>
+        <button id = "create-btn">Create New Account</button>
+    </body>
+</html>
