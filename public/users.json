@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "eva",
+      "password": "eva",
+      "displayName": "Alex",
+      "ecoStats": {
+        "carbonSavedKg": 45.2,
+        "treesEquivalent": 2,
+        "commuteType": "Bicycle"
+      }
+    },
+    {
+      "id": 2,
+      "username": "nature_walker",
+      "password": "ecoPass789",
+      "displayName": "Sam",
+      "ecoStats": {
+        "carbonSavedKg": 12.8,
+        "treesEquivalent": 0.5,
+        "commuteType": "Walking"
+      }
+    }
+  ]
+}
