@@ -8,7 +8,7 @@ import json
 # API Configuration
 API_KEY = os.getenv("API_KEY")
 if not API_KEY:
-    raise EnvironmentError("Set GOOGLE_MAPS_API_KEY environment variable.")
+    raise EnvironmentError("Set GOOGfLE_MAPS_API_KEY environment variable.")
 
 gmaps = googlemaps.Client(key=API_KEY)
 
@@ -431,10 +431,10 @@ def get_all_routes(origin, destination):
 
 if __name__ == "__main__":
 
-    #ORIGIN = sys.argv[1]
-    #DESTINATION = sys.argv[2]
+    ORIGIN = sys.argv[1]
+    DESTINATION = sys.argv[2]
 
-    ORIGIN = "Rillito Regional Park, Tucson, AZ"
-    DESTINATION = "University of Arizona, Tucson, AZ"
+    #ORIGIN = "Rillito Regional Park, Tucson, AZ"
+    #DESTINATION = "University of Arizona, Tucson, AZ"
 
     get_all_routes(ORIGIN, DESTINATION)
