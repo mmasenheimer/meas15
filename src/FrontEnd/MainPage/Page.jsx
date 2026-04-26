@@ -5,7 +5,7 @@ import Profile from "./profile.jsx";
 import Map from "./map.jsx";
 import HomePage from "./HomePage.jsx";
 
-export default function Page({ logOut, user }) {
+export default function Page({ logOut, user, changeGroupStatus}) {
   const [page, setPage] = useState("home");
 
   const changePage = (newPage) => {
@@ -17,7 +17,7 @@ export default function Page({ logOut, user }) {
       case "leaderboard":
         return <Leaderboard />;
       case "profile":
-        return <Profile logOut={logOut} user={user} />;
+        return <Profile logOut={logOut} user={user} changeGroupStatus={changeGroupStatus}/>;
       case "map":
         return <Map />;
       default:
