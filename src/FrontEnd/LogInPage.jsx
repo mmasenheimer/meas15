@@ -26,6 +26,7 @@ function LogInPage({ onSubmit }) {
       }
 
       const data = await response.json();
+      console.log(data);
       onSubmit(data);
       setError("");
     } catch (err) {
