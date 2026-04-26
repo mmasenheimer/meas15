@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 
 export default function Profile({logOut}) {
 
+
+
     return (
         <div id="profile">
             <div id="userName">Username: </div>

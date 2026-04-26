@@ -11,6 +11,7 @@ function App() {
         console.log('Login attempt:', { userName, password });
         setLoggedIn(true);
     }
+    
     const logOut = () => {
         setLoggedIn(false);
         setPassword('');
