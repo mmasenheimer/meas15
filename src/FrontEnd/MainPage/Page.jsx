@@ -21,7 +21,7 @@ export default function Page({ logOut, user, changeGroupStatus}) {
       case "map":
         return <Map />;
       default:
-        return <HomePage />;
+        return <HomePage user={user}/>;
     }
   }
 
