@@ -74,14 +74,6 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
     return (
         <div className="page-container">
             <div className="side-banner"></div>
-<<<<<<< HEAD
-            <div id="profile">
-                <h2>Profile</h2>
-                <div id="userName"><strong>Username:</strong> {user?.username}</div>
-                <div id="points"><strong>Points:</strong> {user?.points}</div>
-                <div id="userGroup"><strong>Group:</strong> {user?.group ?? "No Group joined"}</div>
-=======
-            
             <div className="content-area" id="profile">
                 <h1>Profile</h1>
                 <div className="info-section">
@@ -89,36 +81,10 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
                     <p><strong>Points:</strong> {user?.points}</p>
                     <p><strong>Group:</strong> {user?.group ? user.group : "No Group joined"}</p>
                 </div>
->>>>>>> cbd788a974d3d9a0046c3517e87b7ff7e104d77e
 
                 <hr />
 
                 {user?.group ? (
-<<<<<<< HEAD
-                    <div id="inGroupSection">
-                        <p>You are currently a member of <b>{user.group}</b></p>
-                        <button onClick={leaveGroup}>Leave Group</button>
-                    </div>
-                ) : (
-                    <div id="noGroupSection">
-                        <h3>Create a Group</h3>
-                        <input
-                            type="text"
-                            placeholder="New Group Name"
-                            value={createGroupName}
-                            onChange={(e) => setCreateGroup(e.target.value)}
-                        />
-                        <button onClick={createGroup}>Create Group</button>
-
-                        <h3>Or Join a Group</h3>
-                        <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
-                            <option value="">-- Select a group --</option>
-                            {groups.map((g) => (
-                                <option key={g._id} value={g._id}>{g.name}</option>
-                            ))}
-                        </select>
-                        <button onClick={joinGroup}>Join Group</button>
-=======
                     <div className="route-container">
                         <h1>{user.group}</h1>
                         <p>You are currently a member of this group.</p>
@@ -142,12 +108,12 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
                             </button>
                         </div>
 
-                        <div className="form-group" style={{marginTop: '40px'}}>
+                        <div className="form-group" style={{ marginTop: '40px' }}>
                             <h1>Join a Group</h1>
                             <label>Select an existing group</label>
-                            <select 
+                            <select
                                 className="styled-select"
-                                value={selectedGroup} 
+                                value={selectedGroup}
                                 onChange={(e) => setSelectedGroup(e.target.value)}
                             >
                                 <option value="">-- Select a group --</option>
@@ -159,24 +125,13 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
                                 Join Group
                             </button>
                         </div>
->>>>>>> cbd788a974d3d9a0046c3517e87b7ff7e104d77e
                     </div>
                 )}
 
                 <hr />
-<<<<<<< HEAD
 
                 {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
-                <button onClick={logOut} style={{ marginTop: '20px', backgroundColor: '#ff4d4d', color: 'white' }}>
-=======
-                
-                {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
-                
-                <button 
-                    className="map-button btn-red"
-                    onClick={logOut} 
-                >
->>>>>>> cbd788a974d3d9a0046c3517e87b7ff7e104d77e
+                <button className="map-button btn-red" onClick={logOut}>
                     Log Out
                 </button>
             </div>

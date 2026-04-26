@@ -19,7 +19,7 @@ export default function Page({ logOut, user, changeGroupStatus}) {
       case "profile":
         return <Profile logOut={logOut} user={user} changeGroupStatus={changeGroupStatus} />;
       case "map":
-        return <Map />;
+        return <Map updatePoints={updatePoints}/>;
       default:
         return <HomePage user={user}/>;
     }

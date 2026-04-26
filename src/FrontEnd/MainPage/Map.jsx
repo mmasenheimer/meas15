@@ -1,25 +1,12 @@
-<<<<<<< HEAD
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Map.css';
 
-export default function Map({ user }) {
-
+export default function Map({ user, updatePoints }) {
     const [location1, setLocation1] = useState('');
     const [location2, setLocation2] = useState('');
     const [display, setDisplay] = useState(1);
     const [routes, setRoutes] = useState([]);
-    const [selectedRoute, setSelectedRoute] = useState("");
-=======
-import React, { useState } from 'react';
-import './Map.css';
-
-export default function Map() {
-    const [location1, setLocation1] = useState('');
-    const [location2, setLocation2] = useState('');
-    const [display, setDisplay] = useState(1);
-    const [routes, setRoutes] = useState([]); // Initialized as array
     const [selectedRoute, setSelectedRoute] = useState(null);
->>>>>>> cbd788a974d3d9a0046c3517e87b7ff7e104d77e
     const [error, setError] = useState("");
 
     const generateRoutes = async () => {
@@ -33,40 +20,30 @@ export default function Map() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ start: location1, destination: location2 }),
             });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch routes");
-            }
-
-<<<<<<< HEAD
-        const data = await response.json();
-        console.log(data);
-        setRoutes(data.routes);
-        setDisplay(2);
-=======
+            if (!response.ok) throw new Error("Failed to fetch routes");
             const data = await response.json();
-            setRoutes(data);
+            setRoutes(data.routes);  // ← your fix, not teammate's setRoutes(data)
             setDisplay(2);
->>>>>>> cbd788a974d3d9a0046c3517e87b7ff7e104d77e
         } catch (err) {
             setError(err.message);
         }
     };
 
     const addPoints = async (points) => {
-    try {
-        const response = await fetch("/api/profile/addPoints", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: user._id, points }),
-        });
-        if (!response.ok) throw new Error("Failed to update points");
-        const data = await response.json();
-        console.log("Points updated:", data.points);
-    } catch (err) {
-        setError(err.message);
-    }
-};
+        try {
+            const response = await fetch("/api/profile/addPoints", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: user._id, points : points }),
+            });
+            if (!response.ok) throw new Error("Failed to update points");
+            const data = await response.json();
+            console.log("Points updated:", data.points);
+            updatePoints(data.points);
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
     const whichDisplay = () => {
         if (display === 1) {
@@ -91,7 +68,7 @@ export default function Map() {
                             onChange={(e) => setLocation2(e.target.value)}
                         />
                     </div>
-                    {error && <p style={{color: 'red'}}>{error}</p>}
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
                     <button className="map-button" onClick={generateRoutes}>
                         Generate Routes
                     </button>
@@ -101,63 +78,41 @@ export default function Map() {
             return (
                 <div id="display2">
                     <h1>Generated Routes:</h1>
-<<<<<<< HEAD
-                    {routes.map((route, i) => (
-                        <div key={i} className = "route">
-                            <h1>{route.label}</h1>
-                            <text>  
-                                Arrives: {route.arrives}\n 
-                                Departs: {route.departs}\n
-                                Duration: {route.duration}\n
-                                Distance: {route.distance}\n
-                            </text>
-                            <h1>You can save {route.points} grams of carbon by choosing this route!</h1>
-                            <h1>Steps:</h1>
-                            {route.steps.map((step, j) => (
-                                <p key={j} className = "step">{step}</p>
-                    ))}
-                        </div>
-                    ))
-                    }
-                    <select value={selectedRoute} onChange={(e) => {const idx = e.target.value; setSelectedRoute(e.target.value); addPoints(routes[idx].points); setDisplay(3)}}>
-                        <option value="">Select a route!</option>
-                        {routes.map((route, i) => (
-                            <option key={route.label} value={i}>{route.label}</option>
-                        ))}
-                    </select>
-=======
                     {routes.map((route, index) => (
                         <div key={index} className="route-container">
                             <h1>{route.label}</h1>
-                            <p>  
-                                Arrives: {route.arrives}<br/> 
+                            <p>
+                                Arrives: {route.arrives}<br/>
                                 Departs: {route.departs}<br/>
                                 Duration: {route.duration}<br/>
                                 Distance: {route.distance}<br/>
                             </p>
                             <h1>You can save {route.points} grams of carbon!</h1>
-                            <button 
-                                className="map-button" 
-                                onClick={() => {setSelectedRoute(index); setDisplay(3)}}
+                            <button
+                                className="map-button"
+                                onClick={() => {
+                                    setSelectedRoute(index);
+                                    addPoints(route.points); 
+                                    setDisplay(3);
+                                }}
                             >
                                 Select this Route
                             </button>
                         </div>
                     ))}
->>>>>>> cbd788a974d3d9a0046c3517e87b7ff7e104d77e
                 </div>
             );
         } else if (display === 3) {
             return (
                 <div id="display3">
-                    <h1>You saved {routes[selectedRoute].points} grams of carbon!</h1>
+                    <h1>You saved {routes[selectedRoute]?.points} grams of carbon!</h1>
                     <button className="map-button" onClick={() => setDisplay(1)}>
                         Start Over
                     </button>
                 </div>
             );
         }
-    }
+    };
 
     return (
         <div className="page-container">
@@ -167,5 +122,5 @@ export default function Map() {
                 {whichDisplay()}
             </div>
         </div>
-    )
+    );
 }
