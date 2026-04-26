@@ -8,7 +8,7 @@ export default function Leaderboard() {
     
 
     const leaderBoardMaker = () => {
-
+        
     }
 
     return (
