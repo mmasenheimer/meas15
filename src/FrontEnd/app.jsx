@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LogInPage from "./LogInPage.jsx";
 import Page from "./MainPage/Page.jsx";
+import Header from "./MainPage/Header.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -33,8 +34,9 @@ function App() {
 
   return (
     <div className="App">
-         <button onClick={() =>  {
+         <button style={{ position: 'fixed', top: '10px', right: '10px', zIndex: 2000, backgroundColor: 'yellow', color: 'black' }} onClick={() =>  {
             setLoggedIn(true); setUser({username : "eva", points: 5, group: 1})}}>bypass</button>
+      <Header changePage={() => {}} page="login" />
       {loggedIn ? (
         <Page logOut={logOut} user={user} changeGroupStatus={changeGroupStatus} />
       ) : (
