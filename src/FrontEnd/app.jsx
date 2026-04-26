@@ -33,7 +33,8 @@ function App() {
 
   return (
     <div className="App">
-         <button onClick={() => setLoggedIn(true)}>bypass</button>
+         <button onClick={() =>  {
+            setLoggedIn(true); setUser({username : "eva", points: 5, group: 1})}}>bypass</button>
       {loggedIn ? (
         <Page logOut={logOut} user={user} changeGroupStatus={changeGroupStatus} />
       ) : (
