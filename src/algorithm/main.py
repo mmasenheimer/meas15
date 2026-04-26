@@ -184,7 +184,9 @@ def print_route(summary):
     print(f"  {summary['label']}")
     print(f"{'═' * 65}")
     if "error" in summary:
-        print(f"   {summary['error']}")
+
+        print(f"  {summary['error']}")
+
         return
     print(f"  Departs  : {summary['departs']}")
     print(f"  Arrives  : {summary['arrives']}")
