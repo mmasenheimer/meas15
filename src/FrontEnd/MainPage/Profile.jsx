@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Profile({ logOut, user, changeGroupStatus }) {
-    const [joinGroup, setNewGroup] = useState("");
     const [createGroupName, setCreateGroup] = useState("");
-    const [inAGroup, setInGroup] = useState(!!user.groups);
+    const [inAGroup, setInGroup] = useState(!!user.group);
     const [groups, setGroups] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState("");
+    const [error, setError] = useState("");
+    console.log(user);
+    console.log(inAGroup);
+    useEffect(() => {
+  fetch("/api/groups/getAll")
+    .then(r => r.json())
+    .then(data => setGroups(data));
+}, []);
 
     const createGroup = async () => {
-        if (createGroup.trim() === "") {
+        if (createGroupName.trim() === "") {
             setError("Group name cannot be empty");
         return;
         }
@@ -17,7 +25,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: user.id, groupName: createGroupName }),
+            body: JSON.stringify({ userId: user._id}),
         });
 
         if (!response.ok) {
@@ -27,7 +35,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
         const data = await response.json();
         console.log(data);
         setInGroup(true);
-        changeGroupStatus(createGroup);
+        changeGroupStatus(data.group);
         } catch (err) {
         setError(err.message || "An error occurred during create group");
         }
@@ -40,7 +48,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: user.id, groupName: user.group }),
+            body: JSON.stringify({ userId: user._id, groupId: selectedGroup }),
         });
 
         if (!response.ok) {
@@ -49,37 +57,22 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
 
         const data = await response.json();
         console.log(data);
-        setGroups(data.response);
         changeGroupStatus(null);
         } catch (err) {
         setError(err.message || "An error occurred during leave group");
         }
     }
 
-    const getGroups = async () => {
-        if (createGroup.trim() === "") {
-            setError("Group name cannot be empty");
-        return;
-        }
-        try {
-        const response = await fetch("/api/groups/get", {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: "",
-        });
-
-        if (!response.ok) {
-            throw new Error(response.error);
-        }
-
-        const data = await response.json();
-        console.log(data);
-        } catch (err) {
-        setError(err.message || "An error occurred during group fetch");
-        }
-    }
+    const joinGroup = async () => {
+  if (!selectedGroup) { setError("Select a group first"); return; }
+  const response = await fetch("/api/groups/join", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ userId: user._id, groupId: selectedGroup }),
+  });
+  if (!response.ok) throw new Error("Join group failed");
+  setInGroup(true);
+};
 
     return (
         <div id="profile">
@@ -95,11 +88,16 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             />
             <button onClick={() => createGroup()}>Create Group</button>
         </div>}
-        {!inAGroup && <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
 
-        </select>}
         {!inAGroup && <button onClick={() => joinGroup()}>Join Group</button>}
-        {inAGroup && <button onClick={() => leaveGroup()}>Leave Group</button>}
+        <button onClick={() => leaveGroup()}>Leave Group</button>
+        {!inAGroup && <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
+  <option value="">Select a group</option>
+  {groups.map((g) => (
+    <option key={g._id} value={g._id}>{g.name}</option>
+  ))}
+</select>}
         </div>
+        
     );
 }
