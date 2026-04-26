@@ -17,7 +17,7 @@ export default function Page({ logOut, user }) {
       case "leaderboard":
         return <Leaderboard />;
       case "profile":
-        return <Profile logOut={logOut} />;
+        return <Profile logOut={logOut} user={user} />;
       case "map":
         return <Map />;
       default:
@@ -28,7 +28,6 @@ export default function Page({ logOut, user }) {
   return (
     <div>
       <Header changePage={changePage} page={page} />
-      <Profile logOut={logOut} user={user} />
       {getPage()}
     </div>
   );
