@@ -2,5 +2,6 @@ node_modules/
 dist/
 *.class
 .DS_Store
+.env
 src/algorithm/GOOGLE_MAPS_API_KEY.txt
 .env
