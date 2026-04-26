@@ -183,7 +183,7 @@ def print_route(summary):
     print(f"  {summary['label']}")
     print(f"{'═' * 65}")
     if "error" in summary:
-        print(f"  ⚠ {summary['error']}")
+        print(f"  {summary['error']}")
         return
     print(f"  Departs  : {summary['departs']}")
     print(f"  Arrives  : {summary['arrives']}")
@@ -409,9 +409,9 @@ def route_7_biking(origin, destination, dep):
 def get_all_routes(origin, destination):
     dep = datetime.now()
 
-    print(f"\n📍 Origin      : {origin}")
-    print(f"📍 Destination : {destination}")
-    print(f"🕐 Departing   : {fmt_time(dep)}")
+    print(f"\n Origin      : {origin}")
+    print(f" Destination : {destination}")
+    print(f" Departing   : {fmt_time(dep)}")
 
     routes = [
         route_1_walking(origin, destination, dep),
