@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CREATE NEW ACCOUNT</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <style>
+            body {
+                margin: 0;
+                padding-top: 80px; /* Space for the 80px banner */
+                padding-left: 20px;
+                padding-bottom: 40px;
+                text-align: left;
+            }
+
+            .icon-banner {
+                background-color: #2d5a27;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                /* Made the banner bigger as requested */
+                height: 80px; 
+                display: flex;
+                /* Changed to 'flex-end' to push the button to the right */
+                justify-content: flex-end; 
+                align-items: center;
+                z-index: 1000;
+                box-sizing: border-box;
+                /* Added padding-right so the icon isn't touching the very edge */
+                padding-right: 30px; 
+            }
+
+            .nav-item {
+                color: white;
+                text-decoration: none;
+                transition: opacity 0.2s, transform 0.2s;
+            }
+
+            .nav-item:hover {
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+
+            .material-symbols-outlined {
+                font-size: 40px !important; /* Made the icon a bit larger to match the bigger banner */
+            }
+
+            input {
+                padding: 8px;
+                width: 250px;
+                margin-bottom: 10px;
+            }
+
+            button {
+                margin-top: 20px;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="icon-banner">
+            <a href="login.html" class="nav-item" title="Back to Login">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </a>
+        </nav>
+
+        <h1>Create an account</h1>
+        <h3>Are you ready to be more environmentally conscious?</h3>
+        
+        <h2>Username</h2>
+        <input type="text">
+        
+        <h2>Password</h2>
+        <input type="password"><br>
+        
+        <button id="create-btn">Create New Account</button>
+    </body>
+</html>

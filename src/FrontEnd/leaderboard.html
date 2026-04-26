@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LEADERBOARD</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <style>
+        body {
+            margin: 0;
+            /* Room for 120px top banner and 250px sidebar */
+            padding-top: 140px;
+            padding-left: 270px; 
+            padding-right: 20px;
+            text-align: left;
+        }
+
+        /* Top Banner - Solid Green (Stretches across everything) */
+        .icon-banner {
+            background-color: #2d5a27;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%; 
+            height: 120px; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 1002; /* Sits on top of the sidebar */
+            box-sizing: border-box;
+            padding-right: 30px;
+        }
+
+        /* Group for Map and Ranking - Pushed far left */
+        .nav-group {
+            display: flex;
+            gap: 30px;
+            padding-left: 30px; /* Tiny bit of padding from the very left edge */
+        }
+
+        /* Side Banner - Image (Sits under the top banner) */
+        .side-banner {
+            background-image: url('banner.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: fixed;
+            top: 120px; /* Starts exactly where the top banner ends */
+            left: 0;
+            width: 250px;
+            height: calc(100vh - 120px); /* Fill remaining height */
+            z-index: 1001; 
+            box-sizing: border-box;
+        }
+
+        .nav-item, .profile-link {
+            color: white;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-item:hover, .profile-link:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .material-symbols-outlined {
+            font-size: 60px !important;
+        }
+
+        /* Leaderboard Content Styling */
+        details {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            max-width: 600px;
+        }
+
+        summary {
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #e8f5e9;
+            list-style: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .points-col {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="icon-banner">
+        <div class="nav-group">
+            <a href="map.html" class="nav-item" title="Go to Map">
+                <span class="material-symbols-outlined">location_on</span>
+                <span>Map</span>
+            </a>
+        </div>
+
+        <a href="profile.html" class="profile-link" title="View Profile">
+            <span class="material-symbols-outlined">account_circle</span>
+        </a>
+    </nav>
+
+    <nav class="side-banner"></nav>
+
+    <h1>Leaderboards</h1>
+    <p>See how you stack up against other eco-warriors.</p>
+
+    <details open>
+        <summary>Global Division</summary>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th class="points-col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Alex Green</td><td class="points-col">4500</td></tr>
+                <tr><td>2</td><td>Sarah Leaf</td><td class="points-col">3200</td></tr>
+                <tr><td>3</td><td>Jordan River</td><td class="points-col">2150</td></tr>
+            </tbody>
+        </table>
+    </details>
+
+</body>
+</html>
