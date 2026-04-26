@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-const { PythonShell } = require('python-shell');
 
 export default function Map() {
 
@@ -8,15 +7,7 @@ export default function Map() {
     const [display, setDisplay] = useState(1);
 
     const generateRoutes = () => {
-        let options = {
-            mode: 'text',
-            args: [location1, location2]
-            };
-
-            PythonShell.run('/src/algorithm/main.py', options).then(messages => {
-                // messages is an array of responses from the python script
-                console.log('Results:', messages);
-            });
+        // Placeholder for route generation logic
     };
 
     const whichDisplay = () => {
