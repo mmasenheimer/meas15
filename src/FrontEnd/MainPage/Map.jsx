@@ -6,8 +6,30 @@ export default function Map() {
     const [location2, setLocation2] = useState('');
     const [display, setDisplay] = useState(1);
 
-    const generateRoutes = () => {
-        // Placeholder for route generation logic
+    const generateRoutes = async () => {
+        if (location1.trim() === "" || location2.trim() === "") {
+            setError("Locations cannot be empty");
+        return;
+        }
+        try {
+        const response = await fetch("/api/maps/getActivity", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ location1, location2 }),
+        });
+
+        if (!response.ok) {
+            throw new Error(response.error);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setDisplay(2);
+        } catch (err) {
+        setError(err.message || "An error occurred during create group");
+        }
     };
 
     const whichDisplay = () => {
@@ -25,7 +47,7 @@ export default function Map() {
                         value={location2}
                         onChange={(e) => setLocation2(e.target.value)}
                     />
-                    <button> Generate Routes </button>
+                    <button onClick = {() => generateRoutes()}> Generate Routes </button>
                 </div>
             );
         } else if(display === 2) {

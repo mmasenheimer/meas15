@@ -48,7 +48,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: user._id, groupId: selectedGroup }),
+            body: JSON.stringify({ userId: user.username}),
         });
 
         if (!response.ok) {
