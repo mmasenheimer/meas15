@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import { LogInPage } from './LogInPage.jsx';
-import { HomePage } from './MainPage/HomePage.jsx';
+import LogInPage from './LogInPage.jsx';
+import HomePage from './MainPage/Page.jsx';
 
 function App() {
     const [count, setCount] = useState(0);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [email, setEmail] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const onSubmit = (email, password) => {
-        console.log('Login attempt:', { email, password });
+    const onSubmit = (userName, password) => {
+        console.log('Login attempt:', { userName, password });
         setLoggedIn(true);
     }
-    const onLogout = () => {
+    const onLogOut = () => {
         setLoggedIn(false);
         setPassword('');
-        setEmail('');
+        setUserName('');
     }
     return (
         <div className="App">
             <header className="App-header">
                 <h1>Welcome to React</h1>
             </header>
-            {loggedIn ? (<LogInPage onSubmit={onSubmit}/>) : (<HomePage/>)}
+            {loggedIn ? (<LogInPage onSubmit={onSubmit}/>) : (<HomePage onLogOut={onLogOut}/>)}
         </div>
     );
 }
