@@ -81,11 +81,7 @@ def run_ai_summaries(origin, destination):
 
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) >= 3:
-        ORIGIN      = sys.argv[1]
-        DESTINATION = sys.argv[2]
-    else:
-        ORIGIN      = "Rillito Regional Park, Tucson, AZ"
-        DESTINATION = "University of Arizona, Tucson, AZ"
+    ORIGIN      = sys.argv[1]
+    DESTINATION = sys.argv[2]
 
     run_ai_summaries(ORIGIN, DESTINATION)

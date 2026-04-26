@@ -1,6 +1,6 @@
 import { set } from 'mongoose';
 import React, {useState} from 'react';
-import './HomePage.css';
+import './Map.css';
 
 export default function Map() {
 
@@ -42,17 +42,25 @@ export default function Map() {
             return (
                 <div id = "display1">
                     <h1>Enter two locations to generate routes:</h1>
-                    <input
-                        type="text"
-                        value={location1}
-                        onChange={(e) => setLocation1(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        value={location2}
-                        onChange={(e) => setLocation2(e.target.value)}
-                    />
-                    <button> Generate Routes </button>
+                    <div className="form-group">
+                        <label htmlFor="location1">Location from</label>
+                        <input
+                            id="location1"
+                            type="text"
+                            value={location1}
+                            onChange={(e) => setLocation1(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="location2">Location to</label>
+                        <input
+                            id="location2"
+                            type="text"
+                            value={location2}
+                            onChange={(e) => setLocation2(e.target.value)}
+                        />
+                    </div>
+                    <button className="map-button" onClick={generateRoutes}>Generate Routes</button>
                 </div>
             );
         } else if(display === 2) {
@@ -100,7 +108,7 @@ export default function Map() {
             <div className="side-banner"></div>
             <div className="content-area" id="map">
                 <h1>Map</h1>
-                
+                {whichDisplay()}
             </div>
         </div>
     )

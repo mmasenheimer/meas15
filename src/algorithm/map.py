@@ -1,4 +1,5 @@
 import os
+import sys
 import requests
 from datetime import datetime
 from main import (
@@ -131,6 +132,6 @@ def generate_all_route_maps(origin, destination, output_dir="route_maps"):
 
 
 if __name__ == "__main__":
-    ORIGIN      = "Rillito Regional Park, Tucson, AZ"
-    DESTINATION = "University of Arizona, Tucson, AZ"
+    ORIGIN = sys.argv[1]
+    DESTINATION = sys.argv[2]
     generate_all_route_maps(ORIGIN, DESTINATION)
