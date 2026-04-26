@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PROFILE</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <style>
+            body {
+                margin: 0;
+                /* Room for 120px top banner and 250px sidebar */
+                padding-top: 140px; 
+                padding-left: 270px;
+                padding-right: 20px;
+                text-align: left;
+            }
+
+            /* Top Banner - Solid Green (Overlapping everything) */
+            .icon-banner {
+                background-color: #2d5a27;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 120px; 
+                display: flex;
+                justify-content: space-between; 
+                align-items: center;
+                z-index: 1002; 
+                box-sizing: border-box;
+                padding-right: 30px;
+            }
+
+            /* Group for Map and Ranking - Pushed far left */
+            .nav-group {
+                display: flex;
+                gap: 30px;
+                padding-left: 30px;
+            }
+
+            /* Side Banner - Image (Sits below the top banner) */
+            .side-banner {
+                background-image: url('banner.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: fixed;
+                top: 120px; /* Starts below the green banner */
+                left: 0;
+                width: 250px;
+                height: calc(100vh - 120px); 
+                z-index: 1001; 
+                box-sizing: border-box;
+            }
+
+            .nav-item, .profile-link {
+                color: white;
+                text-decoration: none;
+                transition: transform 0.2s, opacity 0.2s;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .nav-item:hover, .profile-link:hover {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+
+            .material-symbols-outlined {
+                font-size: 60px !important;
+            }
+
+            h1 {
+                margin-top: 20px;
+                margin-bottom: 5px;
+            }
+
+            h2 {
+                color: #2d5a27;
+                margin-top: 0;
+            }
+
+            button {
+                margin-top: 30px;
+                padding: 10px 20px;
+                cursor: pointer;
+                background-color: #f44336; 
+                color: white;
+                border: none;
+                border-radius: 4px;
+            }
+
+            button:hover {
+                background-color: #d32f2f;
+            }
+
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="icon-banner">
+            <div class="nav-group">
+                <a href="map.html" class="nav-item" title="Go to Map">
+                    <span class="material-symbols-outlined">location_on</span>
+                    <span>Map</span>
+                </a>
+                <a href="leaderboard.html" class="nav-item" title="Go to Leaderboard">
+                    <span class="material-symbols-outlined">leaderboard</span>
+                    <span>Leaderboard</span>
+                </a>
+            </div>
+
+            <a href="profile.html" class="profile-link" title="View Profile">
+                <span class="material-symbols-outlined">account_circle</span>
+            </a>
+        </nav>
+
+        <nav class="side-banner"></nav>
+
+        <h1>Hey, [Name]</h1>
+        <h2>Points: ___</h2>
+
+        <a href="login.html">
+            <button>Logout</button>
+        </a>
+    </body>
+</html>
