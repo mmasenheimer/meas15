@@ -37,7 +37,7 @@ export default function Map() {
         if (display === 1) {
             return (
                 <div id="display1">
-                    <h1>Enter two locations to generate routes:</h1>
+                    <h2>Enter two locations to generate routes:</h2>
                     <div className="form-group">
                         <label htmlFor="location1">Location from</label>
                         <input
