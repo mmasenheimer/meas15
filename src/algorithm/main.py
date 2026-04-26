@@ -2,6 +2,7 @@ import os
 import googlemaps
 import re
 from datetime import datetime, timedelta
+import sys
 
 # API Configuration
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
@@ -425,7 +426,8 @@ def get_all_routes(origin, destination):
 
 
 if __name__ == "__main__":
-    ORIGIN = "Rillito Regional Park, Tucson, AZ"
-    DESTINATION = "University of Arizona, Tucson, AZ"
+
+    ORIGIN = sys.argv[1]
+    DESTINATION = sys.argv[2]
 
     get_all_routes(ORIGIN, DESTINATION)
