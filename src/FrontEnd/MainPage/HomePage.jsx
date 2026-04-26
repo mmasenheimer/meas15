@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 
+export default function HomePage({changePage, onLogOut}) {
 
-export default function HomePage() {
-    return <div>HomePage</div>;
+    return (
+        <div id="homePage">
+            <h1>Hello, Welcome!!!</h1>
+        </div>
+    )
 }
