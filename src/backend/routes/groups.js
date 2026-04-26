@@ -20,11 +20,9 @@ router.post("/create", async (req, res) => {
 
   // automatically add the creator to the group
   await UserToGroup.create({ userId, groupId: group._id });
-
-  await UserToGroup.create({ userId, groupId: group._id });
   await User.findByIdAndUpdate(userId, { group: group.name });
 
-  res.status(201).json({ message: "Group created", group });
+  res.status(201).json({ message: "Group created", group: group.name});
 });
 
 router.get("/getAll", async (req, res) => {

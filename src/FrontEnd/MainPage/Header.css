@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
+/* Top Banner - Solid Green */
+#header {
+    background-color: #2d5a27;
+    position: fixed;   /* Sticks to the top */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%; 
+    height: 120px; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    z-index: 1002;    /* Stays above everything else */
+    box-sizing: border-box;
+    padding: 0 40px;
+}
+
+#title {
+    color: white;
+    font-family: sans-serif;
+    margin: 0;
+}
+
+/* Grouping the middle buttons */
+.nav-group {
+    display: flex;
+    gap: 30px;
+}
+
+/* Button Styling to match your HTML look */
+#header button {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+#header button:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+/* Styling the Google Icons */
+.material-symbols-outlined {
+    font-size: 40px !important; /* Large icons like your example */
+}

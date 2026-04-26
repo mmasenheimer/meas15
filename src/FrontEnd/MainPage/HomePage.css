@@ -1,0 +1,37 @@
+/* Container to handle the overall layout */
+.page-container {
+    margin: 0;
+    /* This creates the 'empty space' for your fixed Header and Sidebar */
+    padding-top: 140px; 
+    padding-left: 270px; 
+    padding-right: 20px;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    text-align: left;
+}
+
+/* Side Banner - Matches your 'banner.jpg' logic */
+.side-banner {
+    background-color: #e8f5e9; /* Light green placeholder */
+    background-image: url('/banner.jpg'); /* Image is now in public/ */
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    top: 120px; /* Starts below the header */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 120px);
+    z-index: 1001;
+}
+
+/* Content Styling */
+.content-area h1 {
+    font-size: 2.5rem;
+    color: #2d5a27; /* Your Dark Green */
+    margin-bottom: 10px;
+}
+
+.content-area p {
+    font-size: 1.2rem;
+    color: #666;
+}
