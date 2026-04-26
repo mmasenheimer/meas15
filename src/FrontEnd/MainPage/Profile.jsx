@@ -26,7 +26,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: user._id}),
+            body: JSON.stringify({ userId: user._id, name: createGroupName}),
         });
 
         if (!response.ok) {
@@ -49,33 +49,52 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: user.username}),
+            body: JSON.stringify({ userId: user._id}),
         });
 
         if (!response.ok) {
-            throw new Error(response.error);
+            const data = await response.json();
+            throw new Error(data.error || "Leave failed");
         }
 
-        const data = await response.json();
-        console.log(data);
-        changeGroupStatus(null);
-        } catch (err) {
-        setError(err.message || "An error occurred during leave group");
-        }
+        // Update the global App state
+        changeGroupStatus(null); 
+        // Update the local component state to show Join/Create buttons
+        setInGroup(false); 
+        
+    } catch (err) {
+        setError(err.message);
+    }
     }
 
     const joinGroup = async () => {
-  if (!selectedGroup) { setError("Select a group first"); return; }
-  const response = await fetch("/api/groups/join", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId: user._id, groupId: selectedGroup }),
-  });
-  if (!response.ok) throw new Error("Join group failed");
-  setInGroup(true);
-};
+        if (!selectedGroup) { setError("Select a group first"); return; }
+        try {
+            const response = await fetch("/api/groups/join", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: user._id, groupId: selectedGroup }),
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || "Join group failed");
+
+            // Find the name of the group we just joined to update the UI
+            const joinedGroup = groups.find(g => g._id === selectedGroup);
+            changeGroupStatus(joinedGroup ? joinedGroup.name : "Joined");
+            setError("");
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
     return (
+        <div id="profile" style={{ padding: '20px', border: '1px solid #ccc' }}>
+            <h2>Profile</h2>
+            <div id="userName"><strong>Username:</strong> {user?.username}</div>
+            <div id="points"><strong>Points:</strong> {user?.points}</div>
+            <div id="userGroup"><strong>Group:</strong> {user?.group ? user.group : "No Group joined"}</div>
+
         <div className="page-container">
             <div className="side-banner"></div>
             <div id="profile">
@@ -92,16 +111,45 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
             <button onClick={() => createGroup()}>Create Group</button>
         </div>}
 
-        {!inAGroup && <button onClick={() => joinGroup()}>Join Group</button>}
-        <button onClick={() => leaveGroup()}>Leave Group</button>
-        {!inAGroup && <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
-  <option value="">Select a group</option>
-  {groups.map((g) => (
-    <option key={g._id} value={g._id}>{g.name}</option>
-  ))}
-</select>}
+            <hr />
+
+            {user?.group ? (
+                /* VIEW: If user is in a group, only show Leave */
+                <div id="inGroupSection">
+                    <p>You are currently a member of <b>{user.group}</b></p>
+                    <button onClick={leaveGroup}>Leave Group</button>
+                </div>
+            ) : (
+                /* VIEW: If user is NOT in a group, show Create and Join options */
+                <div id="noGroupSection">
+                    <h3>Create a Group</h3>
+                    <input
+                        type="text"
+                        placeholder="New Group Name"
+                        value={createGroupName}
+                        onChange={(e) => setCreateGroup(e.target.value)}
+                    />
+                    <button onClick={createGroup}>Create Group</button>
+
+                    <h3>Or Join a Group</h3>
+                    <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
+                        <option value="">-- Select a group --</option>
+                        {groups.map((g) => (
+                            <option key={g._id} value={g._id}>{g.name}</option>
+                        ))}
+                    </select>
+                    <button onClick={joinGroup}>Join Group</button>
+                </div>
+            )}
+
+            <hr />
+            
+            {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
+            <button onClick={logOut} style={{ marginTop: '20px', backgroundColor: '#ff4d4d', color: 'white' }}>
+                Log Out
+            </button>
         </div>
-        
     </div>
+
     );
 }
