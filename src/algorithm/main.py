@@ -6,7 +6,7 @@ import sys
 import json
 
 # API Configuration
-API_KEY = os.getenv("API_KEY")
+API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
 if not API_KEY:
     raise EnvironmentError("Set GOOGfLE_MAPS_API_KEY environment variable.")
 
