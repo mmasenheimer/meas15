@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './LogInPage.css';
 
 function LogInPage({ onSubmit }) {
   const [username, setUserName] = useState("");
@@ -63,37 +64,47 @@ function LogInPage({ onSubmit }) {
   };
 
   return (
-    <div>
-      <h1>Welcome to ECO-Map!</h1>
-      <h3>Trying to be more eco friendly?</h3>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUserName(e.target.value)}
-        placeholder="Username"
-      />
-      {isCreating && (
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-      )}
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      {isCreating && <button id="backLogIn" onClick={() => setIsCreating(false)}>Back to Log In</button>}
-      <button onClick={handleSubmit}>Log in</button>
-      <button
-        onClick={() => (isCreating ? handleCreate() : setIsCreating(true))}
-      >
-        {isCreating ? "Submit" : "Create new Account"}
-      </button>
-      <p>{error}</p>
+    <div className="page-container">
+      <div className="side-banner"></div>
+      <div className="login-form">
+        <h1>Welcome to ECO-Map!</h1>
+        <h3>Trying to be more eco friendly?</h3>
+        <div className="form-group">
+          <label htmlFor="username">Username: </label>
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
+        {isCreating && (
+          <div className="form-group">
+            <label htmlFor="email">Email: </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        )}
+        <div className="form-group">
+          <label htmlFor="password">Password: </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {isCreating && <button id="backLogIn" className="login-button" onClick={() => setIsCreating(false)}>Back to Log In</button>}
+        <button className="login-button" onClick={handleSubmit}>Log in</button>
+        <button className="login-button" onClick={() => (isCreating ? handleCreate() : setIsCreating(true))}>
+          {isCreating ? "Submit" : "Create new Account"}
+        </button>
+        <p>{error}</p>
+      </div>
     </div>
   );
 }
