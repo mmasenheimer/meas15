@@ -89,67 +89,50 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
     };
 
     return (
-        <div id="profile" style={{ padding: '20px', border: '1px solid #ccc' }}>
-            <h2>Profile</h2>
-            <div id="userName"><strong>Username:</strong> {user?.username}</div>
-            <div id="points"><strong>Points:</strong> {user?.points}</div>
-            <div id="userGroup"><strong>Group:</strong> {user?.group ? user.group : "No Group joined"}</div>
-
         <div className="page-container">
             <div className="side-banner"></div>
             <div id="profile">
-        <div id="userName">Username: {user?.username}</div>
-        <div id="points">Points: {user?.points}</div>
-        <div>Group: {!!user.group ? user.group : "No Group joined"}</div>
-        <button onClick={() => logOut()}>Log Out</button>
-        {!inAGroup && <div id = 'createGroup'>
-            <input
-            type="text"
-            value={createGroupName}
-            onChange={(e) => setCreateGroup(e.target.value)}
-            />
-            <button onClick={() => createGroup()}>Create Group</button>
-        </div>}
+                <h2>Profile</h2>
+                <div id="userName"><strong>Username:</strong> {user?.username}</div>
+                <div id="points"><strong>Points:</strong> {user?.points}</div>
+                <div id="userGroup"><strong>Group:</strong> {user?.group ?? "No Group joined"}</div>
 
-            <hr />
+                <hr />
 
-            {user?.group ? (
-                /* VIEW: If user is in a group, only show Leave */
-                <div id="inGroupSection">
-                    <p>You are currently a member of <b>{user.group}</b></p>
-                    <button onClick={leaveGroup}>Leave Group</button>
-                </div>
-            ) : (
-                /* VIEW: If user is NOT in a group, show Create and Join options */
-                <div id="noGroupSection">
-                    <h3>Create a Group</h3>
-                    <input
-                        type="text"
-                        placeholder="New Group Name"
-                        value={createGroupName}
-                        onChange={(e) => setCreateGroup(e.target.value)}
-                    />
-                    <button onClick={createGroup}>Create Group</button>
+                {user?.group ? (
+                    <div id="inGroupSection">
+                        <p>You are currently a member of <b>{user.group}</b></p>
+                        <button onClick={leaveGroup}>Leave Group</button>
+                    </div>
+                ) : (
+                    <div id="noGroupSection">
+                        <h3>Create a Group</h3>
+                        <input
+                            type="text"
+                            placeholder="New Group Name"
+                            value={createGroupName}
+                            onChange={(e) => setCreateGroup(e.target.value)}
+                        />
+                        <button onClick={createGroup}>Create Group</button>
 
-                    <h3>Or Join a Group</h3>
-                    <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
-                        <option value="">-- Select a group --</option>
-                        {groups.map((g) => (
-                            <option key={g._id} value={g._id}>{g.name}</option>
-                        ))}
-                    </select>
-                    <button onClick={joinGroup}>Join Group</button>
-                </div>
-            )}
+                        <h3>Or Join a Group</h3>
+                        <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
+                            <option value="">-- Select a group --</option>
+                            {groups.map((g) => (
+                                <option key={g._id} value={g._id}>{g.name}</option>
+                            ))}
+                        </select>
+                        <button onClick={joinGroup}>Join Group</button>
+                    </div>
+                )}
 
-            <hr />
-            
-            {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
-            <button onClick={logOut} style={{ marginTop: '20px', backgroundColor: '#ff4d4d', color: 'white' }}>
-                Log Out
-            </button>
+                <hr />
+
+                {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
+                <button onClick={logOut} style={{ marginTop: '20px', backgroundColor: '#ff4d4d', color: 'white' }}>
+                    Log Out
+                </button>
+            </div>
         </div>
-    </div>
-
     );
 }

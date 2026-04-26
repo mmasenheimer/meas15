@@ -1,14 +1,14 @@
-import { set } from 'mongoose';
 import React, {useState} from 'react';
 import './Map.css';
 
-export default function Map() {
+export default function Map({ user }) {
 
     const [location1, setLocation1] = useState('');
     const [location2, setLocation2] = useState('');
     const [display, setDisplay] = useState(1);
-    const [routes, setRoutes] = useState(null);
-    const [selectedRoute, setSelectedRoute] = useState(null);
+    const [routes, setRoutes] = useState([]);
+    const [selectedRoute, setSelectedRoute] = useState("");
+    const [error, setError] = useState("");
 
     const generateRoutes = async () => {
         if (location1.trim() === "" || location2.trim() === "") {
@@ -30,12 +30,27 @@ export default function Map() {
 
         const data = await response.json();
         console.log(data);
-        setRoutes(data);
+        setRoutes(data.routes);
         setDisplay(2);
         } catch (err) {
             setError(err.message || "An error occurred during create group");
         }
     };
+
+    const addPoints = async (points) => {
+    try {
+        const response = await fetch("/api/profile/addPoints", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: user._id, points }),
+        });
+        if (!response.ok) throw new Error("Failed to update points");
+        const data = await response.json();
+        console.log("Points updated:", data.points);
+    } catch (err) {
+        setError(err.message);
+    }
+};
 
     const whichDisplay = () => {
         if (display === 1) {
@@ -67,8 +82,8 @@ export default function Map() {
             return (
                 <div id = "display2">
                     <h1>Generated Routes:</h1>
-                    {routes.values().map((route) => () => {
-                        <div classname = "route">
+                    {routes.map((route, i) => (
+                        <div key={i} className = "route">
                             <h1>{route.label}</h1>
                             <text>  
                                 Arrives: {route.arrives}\n 
@@ -78,15 +93,15 @@ export default function Map() {
                             </text>
                             <h1>You can save {route.points} grams of carbon by choosing this route!</h1>
                             <h1>Steps:</h1>
-                            {route.steps.map((step) => () => {
-                                <p className = "step">{step}</p>
-                            })}
+                            {route.steps.map((step, j) => (
+                                <p key={j} className = "step">{step}</p>
+                    ))}
                         </div>
-                    })
+                    ))
                     }
-                    <select value={selectedRoute} onChange={(e) => {setSelectedRoute(e.target.value); setDisplay(3)}}>
+                    <select value={selectedRoute} onChange={(e) => {const idx = e.target.value; setSelectedRoute(e.target.value); addPoints(routes[idx].points); setDisplay(3)}}>
                         <option value="">Select a route!</option>
-                        {routes.values().map((route, i) => (
+                        {routes.map((route, i) => (
                             <option key={route.label} value={i}>{route.label}</option>
                         ))}
                     </select>
