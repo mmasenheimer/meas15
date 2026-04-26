@@ -15,7 +15,7 @@ export default function Page({ logOut, user, changeGroupStatus}) {
   function getPage() {
     switch (page) {
       case "leaderboard":
-        return <Leaderboard />;
+        return <Leaderboard user={user}/>;
       case "profile":
         return <Profile logOut={logOut} user={user} changeGroupStatus={changeGroupStatus} />;
       case "map":
