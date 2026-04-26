@@ -23,8 +23,10 @@ router.patch("/", async (req, res) => {
 });
 
 // POST /api/profile/logout
-router.post("/logout", (req, res) => {
-  // Frontend just clears its stored user — nothing to do server-side without sessions/JWT
+router.post("/logout", async (req, res) => {
+  const { userId } = req.body;
+
+  await User.findByIdAndUpdate(userId, { isLoggedIn: false });
   res.json({ message: "Logged out" });
 });
 

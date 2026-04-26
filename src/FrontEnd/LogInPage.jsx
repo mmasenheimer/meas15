@@ -5,6 +5,7 @@ function LogInPage({ onSubmit }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
 
   const handleSubmit = async () => {
     if (username.trim() === "" || password.trim() === "") {
@@ -17,7 +18,7 @@ function LogInPage({ onSubmit }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password}),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
@@ -48,7 +49,7 @@ function LogInPage({ onSubmit }) {
 
       if (response.status === 409) {
         throw new Error("Account already exists with that username or email");
-      }else if(!response.ok){
+      } else if (!response.ok) {
         throw new Error("Create Account failed");
       }
 
@@ -64,24 +65,32 @@ function LogInPage({ onSubmit }) {
     <div>
       <h1>Welcome to ECO-Map!</h1>
       <h3>Trying to be more eco friendly?</h3>
-      <h2>Username</h2>
       <input
         type="text"
         value={username}
         onChange={(e) => setUserName(e.target.value)}
+        placeholder="Username"
       />
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      {isCreating && (
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+      )}
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
       />
       <button onClick={handleSubmit}>Log in</button>
-      <button id="create-btn"> Create new Account</button>
+      <button
+        onClick={() => (isCreating ? handleCreate() : setIsCreating(true))}
+      >
+        {isCreating ? "Submit" : "Create new Account"}
+      </button>
       <p>{error}</p>
     </div>
   );

@@ -1,14 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-export default function Profile({logOut}) {
-
-
-
-    return (
-        <div id="profile">
-            <div id="userName">Username: </div>
-            <div id="points">Points: </div>
-            <button id="logOutButton" onClick={() => logOut()}>Log Out</button>
-        </div>
-    )
+export default function Profile({ logOut, user }) {
+  return (
+    <div id="profile">
+      <div id="userName">Username: {user?.username}</div>
+      <div id="points">Points: {user?.points}</div>
+      <button onClick={logOut}>Log Out</button>
+    </div>
+  );
 }
