@@ -12,7 +12,7 @@ export default function Map() {
             return;
         }
         try {
-        const response = await fetch("/api/maps/getActivity", {
+        const response = await fetch("/api/map/getActivity", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
