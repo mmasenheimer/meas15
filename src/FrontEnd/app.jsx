@@ -9,9 +9,12 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  changeGroupStatus = (groupName) => {
-    user.group = groupName;
-  }
+  // const changeGroupStatus = (groupName) => {
+  //   user.group = groupName;
+  // }
+  const changeGroupStatus = (group) => {
+  setUser({ ...user, group });
+};
 
   const onSubmit = (data) => {
     setUser(data.user);
@@ -31,7 +34,7 @@ function App() {
   return (
     <div className="App">
       {loggedIn ? (
-        <Page logOut={logOut} user={user} />
+        <Page logOut={logOut} user={user} changeGroupStatus={changeGroupStatus} />
       ) : (
         <LogInPage onSubmit={onSubmit} />
       )}

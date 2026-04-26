@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import sys
 import json
 from dotenv import load_dotenv
+sys.stdout.reconfigure(encoding='utf-8')
 
 # API Configuration
 
@@ -183,7 +184,9 @@ def print_route(summary):
     print(f"  {summary['label']}")
     print(f"{'═' * 65}")
     if "error" in summary:
+
         print(f"  {summary['error']}")
+
         return
     print(f"  Departs  : {summary['departs']}")
     print(f"  Arrives  : {summary['arrives']}")
@@ -423,8 +426,8 @@ def get_all_routes(origin, destination):
         route_7_biking(origin, destination, dep)
     ]
 
-    for r in routes:
-        print_route(r)
+    # for r in routes:
+    #     print_route(r)
     
     for r in routes:
         print(json.dumps(r))

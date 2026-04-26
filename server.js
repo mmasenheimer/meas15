@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 app.use("/api/groups", require("./src/backend/routes/groups"));
+app.use("/api/map", require("./src/backend/routes/map"));
 
 mongoose
   .connect(process.env.MONGODB_URI)

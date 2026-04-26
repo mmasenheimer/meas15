@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   points: { type: Number, default: 0 },
+  group: {type: String, default: null}
 });
 
 // Trip schema
@@ -18,8 +19,8 @@ const tripSchema = new mongoose.Schema({
 
 // Group schema
 const groupSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  groupId: { type: String, required: true, unique: true }
+  name: { type: String, required: true }
+  //groupId: { type: String, required: true, unique: true }
 });
 
 // User to group schema
