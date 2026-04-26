@@ -3,6 +3,7 @@ import googlemaps
 import re
 from datetime import datetime, timedelta
 import sys
+import json
 
 # API Configuration
 API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY")
@@ -420,6 +421,9 @@ def get_all_routes(origin, destination):
 
     for r in routes:
         print_route(r)
+    
+    for r in routes:
+        print(json.dumps(r))
 
     print(f"\n{'═' * 65}\n")
     return routes
@@ -427,7 +431,10 @@ def get_all_routes(origin, destination):
 
 if __name__ == "__main__":
 
-    ORIGIN = sys.argv[1]
-    DESTINATION = sys.argv[2]
+    #ORIGIN = sys.argv[1]
+    #DESTINATION = sys.argv[2]
+
+    ORIGIN = "Rillito Regional Park, Tucson, AZ"
+    DESTINATION = "University of Arizona, Tucson, AZ"
 
     get_all_routes(ORIGIN, DESTINATION)
