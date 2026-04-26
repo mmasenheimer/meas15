@@ -435,10 +435,10 @@ def get_all_routes(origin, destination):
 
 if __name__ == "__main__":
 
-    #ORIGIN = sys.argv[1]
-    #DESTINATION = sys.argv[2]
+    ORIGIN = sys.argv[1]
+    DESTINATION = sys.argv[2]
 
-    ORIGIN = "Rillito Regional Park, Tucson, AZ"
-    DESTINATION = "University of Arizona, Tucson, AZ"
+    #ORIGIN = "Rillito Regional Park, Tucson, AZ"
+    #DESTINATION = "University of Arizona, Tucson, AZ"
 
     get_all_routes(ORIGIN, DESTINATION)
