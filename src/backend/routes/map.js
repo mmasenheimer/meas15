@@ -9,13 +9,13 @@ router.post("/getActivity", async (req, res) => {
 
   exec(
     `py -3.13 ./src/algorithm/main.py "${start}" "${destination}"`,
+    { timeout: 30000 },
     (err, stdout, stderr) => {
       if (err) return res.status(500).json({ error: stderr });
 
-      const result = JSON.parse(stdout);
-      console.log(result);
-
-      res.json(result);
+      const lines = stdout.split('\n').filter(l => l.trim().startsWith('{'));
+      const routes = lines.map(l => JSON.parse(l));
+      res.json({ routes });
     },
   );
 });

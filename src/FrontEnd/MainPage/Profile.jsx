@@ -1,4 +1,3 @@
-import { set } from "mongoose";
 import React, { useState } from "react";
 
 export default function Profile({ logOut, user, changeGroupStatus }) {
@@ -34,7 +33,7 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
         }
     }
 
-    const leaveGroup = () => {
+    const leaveGroup = async () => {
         try {
         const response = await fetch("/api/groups/leave", {
             method: "POST",
