@@ -13,7 +13,7 @@
 /* Side Banner - Matches your 'banner.jpg' logic */
 .side-banner {
     background-color: #e8f5e9; /* Light green placeholder */
-    background-image: url('banner.jpg'); /* Ensure this image is in your public folder */
+    background-image: url('/banner.jpg'); /* Image is now in public/ */
     background-size: cover;
     background-position: center;
     position: fixed;
@@ -55,7 +55,7 @@
 }
 
 .form-group input {
-    width: 100%;
+    width: 300px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -64,12 +64,14 @@
 }
 
 /* Button Styling */
+.login-button,
 #byPass,
 #login-btn,
 #create-btn {
+    display: block;
     margin-top: 15px;
+    margin-bottom: 10px;
     padding: 10px 20px;
-    margin-right: 10px;
     cursor: pointer;
     background-color: #2d5a27;
     color: white;

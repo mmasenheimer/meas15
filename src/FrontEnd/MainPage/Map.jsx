@@ -1,5 +1,6 @@
 import { set } from 'mongoose';
 import React, {useState} from 'react';
+import './HomePage.css';
 
 export default function Map() {
 
@@ -51,7 +52,7 @@ export default function Map() {
                         value={location2}
                         onChange={(e) => setLocation2(e.target.value)}
                     />
-                    <button onClick = {() => generateRoutes()}> Generate Routes </button>
+                    <button> Generate Routes </button>
                 </div>
             );
         } else if(display === 2) {
@@ -95,8 +96,12 @@ export default function Map() {
     
 
     return (
-        <div id="map">
-            {whichDisplay()}
+        <div className="page-container">
+            <div className="side-banner"></div>
+            <div className="content-area" id="map">
+                <h1>Map</h1>
+                
+            </div>
         </div>
     )
 }

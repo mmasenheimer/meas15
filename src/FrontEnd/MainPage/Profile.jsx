@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './Profile.css';
 
 export default function Profile({ logOut, user, changeGroupStatus }) {
     const [createGroupName, setCreateGroup] = useState("");
@@ -75,7 +76,9 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
 };
 
     return (
-        <div id="profile">
+        <div className="page-container">
+            <div className="side-banner"></div>
+            <div id="profile">
         <div id="userName">Username: {user?.username}</div>
         <div id="points">Points: {user?.points}</div>
         <div>Group: {!!user.group ? user.group : "No Group joined"}</div>
@@ -99,5 +102,6 @@ export default function Profile({ logOut, user, changeGroupStatus }) {
 </select>}
         </div>
         
+    </div>
     );
 }

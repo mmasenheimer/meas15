@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
+import './Header.css';
 
 export default function Header({ changePage, page }) {
 
     return (
         <div id="header">
-            <h1 id="title"></h1>
-            {!(page === 'home') && <button id="homeButton" onClick={() => changePage("home")}>Home</button>}
-            {!(page === 'leaderboard') && <button id="leaderboardButton" onClick={() => changePage("leaderboard")}>Leaderboard</button>}
-            {!(page === 'profile') && <button id="profileButton" onClick={() => changePage("profile")}>Profile</button>}
-            {!(page === 'map') && <button id="mapButton" onClick={() => changePage("map")}>map</button>}
+            <div className="nav-group">
+                {page !== 'login' && !(page === 'home') && <button className="navButton" onClick={() => changePage("home")}>Home</button>}
+                {page !== 'login' && !(page === 'leaderboard') && <button className="navButton" onClick={() => changePage("leaderboard")}>Leaderboard</button>}
+                {page !== 'login' && !(page === 'map') && <button className="navButton" onClick={() => changePage("map")}>Map</button>}
+            </div>
+            {page !== 'login' && !(page === 'profile') && <button className="navButton" onClick={() => changePage("profile")}>Profile</button>}
         </div> 
     )
 }
