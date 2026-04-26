@@ -59,7 +59,7 @@ export default function Map() {
             return (
                 <div id = "display2">
                     <h1>Generated Routes:</h1>
-                    {routes.map((route) => () => {
+                    {routes.values().map((route) => () => {
                         <div classname = "route">
                             <h1>{route.label}</h1>
                             <text>  
@@ -78,8 +78,8 @@ export default function Map() {
                     }
                     <select value={selectedRoute} onChange={(e) => {setSelectedRoute(e.target.value); setDisplay(3)}}>
                         <option value="">Select a route!</option>
-                        {routes.map((route) => (
-                            <option key={route.label} value={route.key()}>{route.label}</option>
+                        {routes.values().map((route, i) => (
+                            <option key={route.label} value={i}>{route.label}</option>
                         ))}
                     </select>
                 </div>
