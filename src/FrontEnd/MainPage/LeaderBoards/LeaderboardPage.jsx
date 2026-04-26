@@ -4,12 +4,11 @@ import LeaderBoard from './Leaderboard.jsx';
 
 export default function Leaderboard() {
 
-
     return (
         <div id="leaderboardPage">
-            <div id = "globalLeaderboard"></div>
-            <div id = "myGroupLeaderboard"></div>
-            <div id = "groupLeaderboard"></div>
+            <div id = "globalLeaderboard" className = "leaderBoard"></div>
+            <div id = "myGroupLeaderboard" className = "leaderBoard"></div>
+            <div id = "groupLeaderboard" className = "leaderBoard"></div>
         </div>
     )
 }
