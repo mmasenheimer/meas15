@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 
 export default function Profile({ logOut, user }) {
-  return (
-    <div id="profile">
-      <div id="userName">Username: {user?.username}</div>
-      <div id="points">Points: {user?.points}</div>
-      <button onClick={() => logOut()}>Log Out</button>
-      <button onClick={() => joinGroup()}>Join Group</button>
-      <button onClick={() => createGroup()}>Create Group</button>
-      <button onClick={() => leaveGroup()}>Log Out</button>
-    </div>
-  );
+    const [joinGroup, setNewGroup] = useState("");
+    const [createGroup, setCreateGroup] = useState("");
+
+    return (
+        <div id="profile">
+        <div id="userName">Username: {user?.username}</div>
+        <div id="points">Points: {user?.points}</div>
+        <div>Groups: </div>
+        <div id="groups">
+            {user.groups?.map((group) => <div>{group}</div>) || "No groups joined"}
+        </div>
+        </div>
+    );
 }
