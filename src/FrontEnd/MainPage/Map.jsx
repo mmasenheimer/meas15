@@ -9,7 +9,7 @@ export default function Map() {
     const generateRoutes = async () => {
         if (location1.trim() === "" || location2.trim() === "") {
             setError("Locations cannot be empty");
-        return;
+            return;
         }
         try {
         const response = await fetch("/api/maps/getActivity", {
@@ -17,7 +17,7 @@ export default function Map() {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ location1, location2 }),
+            body: JSON.stringify({ start: location1, destination: location2 }),
         });
 
         if (!response.ok) {
@@ -28,7 +28,7 @@ export default function Map() {
         console.log(data);
         setDisplay(2);
         } catch (err) {
-        setError(err.message || "An error occurred during create group");
+            setError(err.message || "An error occurred during create group");
         }
     };
 
