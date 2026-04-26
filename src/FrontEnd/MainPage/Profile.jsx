@@ -4,6 +4,10 @@ export default function Profile({ logOut, user }) {
     const [joinGroup, setNewGroup] = useState("");
     const [createGroup, setCreateGroup] = useState("");
 
+    const createGroup = () => {
+        
+    }
+
     return (
         <div id="profile">
         <div id="userName">Username: {user?.username}</div>
@@ -12,6 +16,13 @@ export default function Profile({ logOut, user }) {
         <div id="groups">
             {user.groups?.map((group) => <div>{group}</div>) || "No groups joined"}
         </div>
+        <button onClick={() => logOut()}>Log Out</button>
+        <input
+            type="text"
+            value={createGroup}
+            onChange={(e) => setCreateGroup(e.target.value)}
+        />
+        <button onClick={() => createGroup()}>Create Group</button>
         </div>
     );
 }
